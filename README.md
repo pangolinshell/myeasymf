@@ -19,7 +19,7 @@ It supports primitive types, pointers, slices, time values, and file uploads.
 ## 📝 Installation
 
 ```bash
-go get github.com/youraccount/funguy
+go get github.com/pangolinshell/myeasyform
 ```
 ---
 
