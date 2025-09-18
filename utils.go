@@ -1,4 +1,4 @@
-package myeasyform
+package form
 
 import (
 	"fmt"
