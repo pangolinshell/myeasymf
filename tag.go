@@ -2,6 +2,7 @@ package myeasyform
 
 import "strings"
 
+// Tag specifies the struct field tag key used for form parsing.
 var Tag string = "form"
 
 // parseTagStr parses a struct tag string and returns the field name and a boolean indicating
