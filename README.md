@@ -1,4 +1,4 @@
-# 📦 Myeasyform – Automatic multipart form decoding for Go
+# 📦 MyEasyMultipartForm – Automatic multipart form decoding for Go
 
 MyEasyM(ultipart)F(Form) is a Go package that **automatically decodes** a `multipart.Form` (such as from an `http.Request`) into a **Go struct** using field tags.  
 It supports primitive types, pointers, slices, time values, and file uploads.
