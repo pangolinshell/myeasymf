@@ -51,7 +51,7 @@ func getByTags(t reflect.Type, key string) (index *int) {
 	var numField = t.NumField()
 	for i := range numField {
 		field := t.Field(i)
-		tagContent := field.Tag.Get(tagName)
+		tagContent := field.Tag.Get(Tag)
 		name, _ := parseTagStr(tagContent)
 		if name == strings.ToLower(key) || name == key {
 			return &i

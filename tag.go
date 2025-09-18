@@ -2,7 +2,7 @@ package myeasyform
 
 import "strings"
 
-var tagName string = "form"
+var Tag string = "form"
 
 // parseTagStr parses a struct tag string and returns the field name and a boolean indicating
 // whether the "omitempty" option is set. The tag string is expected to be in the format "name"
