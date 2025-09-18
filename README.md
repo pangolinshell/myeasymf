@@ -25,18 +25,18 @@ go get github.com/youraccount/funguy
 
 ## 🚀 Basic Usage
 
-1. Define your struct with `funguy` tags
+1. Define your struct with `form` tags (you can change the tag by modifing the `Tag` variable )
 ```golang 
 type Testing struct {
-    Integer int                   `funguy:"integer"`
-    Float   float32               `funguy:"float"`
-    Text    string                `funguy:"text"`
-    When    *time.Time            `funguy:"when"`
-    Names   []string              `funguy:"names"`
-    Files   []*multipart.FileHeader `funguy:"files"`
+    Integer int                     `form:"integer"`
+    Float   float32                 `form:"float"`
+    Text    string                  `form:"text"`
+    When    *time.Time              `form:"when"`
+    Names   []string                `form:"names"`
+    Files   []*multipart.FileHeader `form:"files"`
 }
 ```
-2. Use the decoder in your handler
+1. Use the decoder in your handler
 
 ```golang
 func index(w http.ResponseWriter, r *http.Request) {
