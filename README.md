@@ -1,6 +1,6 @@
-# 📦 Funguy – Automatic multipart form decoding for Go
+# 📦 Myeasyform – Automatic multipart form decoding for Go
 
-Funguy is a Go package that **automatically decodes** a `multipart.Form` (such as from an `http.Request`) into a **Go struct** using field tags.  
+Myeasyform is a Go package that **automatically decodes** a `multipart.Form` (such as from an `http.Request`) into a **Go struct** using field tags.  
 It supports primitive types, pointers, slices, time values, and file uploads.
 
 ---
@@ -47,7 +47,7 @@ func index(w http.ResponseWriter, r *http.Request) {
     }
 
     var dst Testing
-    decoder := funguy.NewDecoder()
+    decoder := myeasyform.NewDecoder()
 
     err = decoder.Decode(&dst, r.MultipartForm)
     if err != nil {
