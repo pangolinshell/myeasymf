@@ -27,6 +27,10 @@ func (d *Decoder) Decode(dst any, src *multipart.Form) error {
 		return ErrNotPtrToStruct
 	}
 
+	if src == nil {
+		return fmt.Errorf("multipart form is nil (did you call r.ParseMultipartForm?)")
+	}
+
 	for key, value := range src.Value {
 		var tagIndex int
 		if len(value) < 1 {
