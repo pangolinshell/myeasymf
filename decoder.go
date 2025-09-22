@@ -11,7 +11,7 @@ type Decoder struct {
 }
 
 func NewDecoder(r *http.Request) *Decoder {
-	return &Decoder{}
+	return &Decoder{r: r}
 }
 
 // Decode populates the fields of the destination struct 'dst' with values from the provided multipart.Form 'src'.
