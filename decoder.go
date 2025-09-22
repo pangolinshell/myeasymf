@@ -2,14 +2,15 @@ package form
 
 import (
 	"fmt"
-	"mime/multipart"
+	"net/http"
 	"reflect"
 )
 
 type Decoder struct {
+	r *http.Request
 }
 
-func NewDecoder() *Decoder {
+func NewDecoder(r *http.Request) *Decoder {
 	return &Decoder{}
 }
 
@@ -18,7 +19,8 @@ func NewDecoder() *Decoder {
 // appropriate field types using the Convert function. For file fields, it assigns []*multipart.FileHeader directly.
 // The destination must be a pointer to a struct. Returns an error if types are incompatible, fields cannot be set,
 // or if the destination is not a pointer to a struct. Currently, always returns ErrNotImplemented at the end.
-func (d *Decoder) Decode(dst any, src *multipart.Form) error {
+func (d *Decoder) Decode(dst any) error {
+	var src = d.r.MultipartForm
 	var ptrType = reflect.TypeOf(dst)
 	var structType = reflect.TypeOf(dst).Elem()
 	var structValue = reflect.ValueOf(dst).Elem()
