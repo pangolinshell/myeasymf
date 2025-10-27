@@ -78,35 +78,33 @@ func (d *Decoder) Decode(dst any) error {
 			return fmt.Errorf("cannot set field %s", structType.Field(tagIndex).Name)
 		}
 
-		// Vérifie le type du champ
 		fieldType := fieldVal.Type()
 
 		switch fieldType.Kind() {
 		case reflect.Slice:
-			// Cas standard : []*multipart.FileHeader
+			// Handles []*multipart.FileHeader
 			rv, err := checkAndConvert(fieldType, value)
 			if err != nil {
-				return fmt.Errorf("champ %s: %w", structType.Field(tagIndex).Name, err)
+				return fmt.Errorf("field %s: %w", structType.Field(tagIndex).Name, err)
 			}
 			fieldVal.Set(rv)
 
 		case reflect.Pointer:
-			// Cas spécial : *multipart.FileHeader
+			// Handles *multipart.FileHeader
 			if len(value) == 0 {
 				continue
 			}
 			if len(value) > 1 {
-				return fmt.Errorf("champ %s: plusieurs fichiers fournis (%d) pour un champ unique", structType.Field(tagIndex).Name, len(value))
+				return fmt.Errorf("field %s: %w", structType.Field(tagIndex).Name, ErrMultipleFilesForSingleField)
 			}
 			rv, err := checkAndConvert(fieldType, value[0])
 			if err != nil {
-				return fmt.Errorf("champ %s: %w", structType.Field(tagIndex).Name, err)
+				return fmt.Errorf("field %s: %w", structType.Field(tagIndex).Name, err)
 			}
 			fieldVal.Set(rv)
 
 		default:
-			return fmt.Errorf("champ %s: type incompatible (%s), attendu slice ou *multipart.FileHeader",
-				structType.Field(tagIndex).Name, fieldType.String())
+			return fmt.Errorf("field %s: %w", structType.Field(tagIndex).Name, ErrUnsupportedFileFieldType)
 		}
 	}
 
