@@ -20,18 +20,22 @@ func NewDecoder(r *http.Request) *Decoder {
 // The destination must be a pointer to a struct. Returns an error if types are incompatible, fields cannot be set,
 // or if the destination is not a pointer to a struct. Currently, always returns ErrNotImplemented at the end.
 func (d *Decoder) Decode(dst any) error {
-	var src = d.r.MultipartForm
-	var ptrType = reflect.TypeOf(dst)
-	var structType = reflect.TypeOf(dst).Elem()
-	var structValue = reflect.ValueOf(dst).Elem()
+	if dst == nil {
+		return fmt.Errorf("destination is nil")
+	}
 
-	if ptrType.Kind() != reflect.Ptr || structType.Kind() != reflect.Struct {
+	ptrType := reflect.TypeOf(dst)
+	if ptrType.Kind() != reflect.Ptr {
 		return ErrNotPtrToStruct
 	}
 
-	if src == nil {
-		return fmt.Errorf("multipart form is nil (did you call r.ParseMultipartForm?)")
+	structType := ptrType.Elem()
+	if structType.Kind() != reflect.Struct {
+		return ErrNotPtrToStruct
 	}
+
+	structValue := reflect.ValueOf(dst).Elem()
+	src := d.r.MultipartForm
 
 	for key, value := range src.Value {
 		var tagIndex int
